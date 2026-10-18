@@ -480,6 +480,9 @@ jobs:
             wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/droidspaces_patch/ntsync_compat_${{ env.ANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch
             patch -p1 -F 3 < ntsync_base.patch || true
             patch -p1 -F 3 < ntsync_compat_${{ env.ANDROID_VERSION }}-${{ env.KERNEL_VERSION }}.patch || true
+            # 应用 cgroup CPU/PIDS 限制 KABI 兼容补丁
+            wget https://github.com/$GITHUB_REPOSITORY/raw/refs/heads/$GITHUB_REF_NAME/droidspaces_patch/fix_cgroup_limits_kabi_6.1.118.patch
+            patch -p1 -F 3 < fix_cgroup_limits_kabi_6.1.118.patch || true
             # 开启 Droidspaces 容器所需内核支持
             echo "CONFIG_PID_NS=y" >> ./arch/arm64/configs/gki_defconfig
             echo "CONFIG_IPC_NS=y" >> ./arch/arm64/configs/gki_defconfig
@@ -494,6 +497,8 @@ jobs:
             echo "CONFIG_UNIX_DIAG=y" >> ./arch/arm64/configs/gki_defconfig
             echo "CONFIG_PROC_CHILDREN=y" >> ./arch/arm64/configs/gki_defconfig
             echo "CONFIG_MACVLAN=y" >> ./arch/arm64/configs/gki_defconfig
+            echo "CONFIG_CFS_BANDWIDTH=y" >> ./arch/arm64/configs/gki_defconfig
+            echo "CONFIG_CGROUP_PIDS=y" >> ./arch/arm64/configs/gki_defconfig
             # 未经测试的配置选项，可能导致bug
             #echo "CONFIG_CGROUP_DEVICE=y" >> ./arch/arm64/configs/gki_defconfig
             #echo "CONFIG_CGROUP_PIDS=y" >> ./arch/arm64/configs/gki_defconfig

@@ -315,6 +315,8 @@ if [[ "$APPLY_DROIDSPACES" == [sSeE] ]]; then
   echo "CONFIG_UNIX_DIAG=y" >> "$DEFCONFIG_FILE"
   echo "CONFIG_PROC_CHILDREN=y" >> "$DEFCONFIG_FILE"
   echo "CONFIG_MACVLAN=y" >> "$DEFCONFIG_FILE"
+  echo "CONFIG_CFS_BANDWIDTH=y" >> "$DEFCONFIG_FILE"
+  echo "CONFIG_CGROUP_PIDS=y" >> "$DEFCONFIG_FILE"
   # 开启 NTSync
   echo "CONFIG_NTSYNC=y" >> "$DEFCONFIG_FILE"
   cd common
